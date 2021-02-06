@@ -16,7 +16,7 @@ const EnterCode = () => {
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
 
   // consultation context
-  const { updateDoctorId } = useContext(ConsultationContext)!;
+  const { updateDoctor } = useContext(ConsultationContext)!;
 
   // for redirection
   const history = useHistory();
@@ -38,7 +38,14 @@ const EnterCode = () => {
     {
       enabled: submitted,
       onSuccess: (data) => {
-        updateDoctorId(data.getDoctor.id);
+        const {
+          firstName,
+          lastName,
+          language,
+          docPublicCode,
+          id,
+        } = data.getDoctor;
+        updateDoctor(id, firstName, lastName, language, docPublicCode);
         history.push("/symptoms_checker");
       },
       onError: () => setIsInvalid(true),
