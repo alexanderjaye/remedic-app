@@ -14,7 +14,7 @@ import SuccessTick from "../../Globals/SuccessTick/SuccessTick";
 const ConsultationChat = () => {
   const { user } = useAuth();
 
-  const { getConsultationId } = useContext(ConsultationContext)!;
+  const { getConsultationId, doctor } = useContext(ConsultationContext)!;
 
   const { messages, addMessage } = useChat(
     String(getConsultationId()),
@@ -55,7 +55,7 @@ const ConsultationChat = () => {
             Thank you for submitting!
           </h1>
           <h2 className="text-bold text-xl text-center">
-            Your doctor will shortly be with you.
+            {doctor.firstName} {doctor.lastName} will be shortly with you.
           </h2>
           <img
             src={Doctor}
@@ -102,7 +102,7 @@ const ConsultationChat = () => {
             <div className="bg-blue h-16 w-screen fixed bottom-0 flex items-center justify-center">
               <UserIcon />
               <h3 className="text-xl text-white-cream ml-3 font-extrabold">
-                Doctor Zivago
+                {doctor.firstName} {doctor.lastName}
               </h3>
             </div>
           </div>
