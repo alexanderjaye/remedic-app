@@ -8,18 +8,25 @@ import React, {
 import { useMutation } from "react-query";
 import client from "../services/graphqlService";
 import mutations from "../services/graphqlService/mutations";
-import { Symptom } from "../types";
+import { Doctor, Symptom } from "../types";
 import { fullPhysicalSymptoms, fullGeneralSymptoms } from "./AllSymptoms";
 import { AuthContext } from "./Auth.context";
 
 export interface AppContextInterface {
   physicalSymptoms: Symptom[];
   generalSymptoms: Symptom[];
+  doctor: Doctor;
   getConsultationId: () => number | undefined;
   togglePhysicalSymptomSelect: (symptom: Symptom) => void;
   toggleGeneralSymptomSelect: (symptom: Symptom, isSelected: boolean) => void;
   changePainLevel: (painLevel: number) => void;
-  updateDoctorId: (id: number) => void;
+  updateDoctor: (
+    firstName: string,
+    lastName: string,
+    language: string,
+    publicDocCode: string,
+    id: number
+  ) => void;
   confirmConsultation: () => Promise<void>;
 }
 
@@ -60,10 +67,8 @@ const ConsultationContextProvider = (props: Props) => {
   const [painLevel, setPainLevel] = useState<number>(0);
 
   // ID states
-  const [doctorId, setDoctorId] = useState<number>(0); // doctor code for socket IO
+  const [doctor, setDoctor] = useState<Doctor>({} as Doctor); // doctor code for socket IO
   const [consultationId, setConsultationId] = useState<number>(); // consultation code for socket IO
-
-  console.log("doctorID in Context", doctorId);
 
   useEffect(() => {
     setSymptoms(fullPhysicalSymptoms);
@@ -91,7 +96,11 @@ const ConsultationContextProvider = (props: Props) => {
 
   const changePainLevel = (painLevel: number): void => setPainLevel(painLevel);
 
-  const updateDoctorId = (id: number): void => setDoctorId(id);
+  const updateDoctor = (
+    id: number,
+    firstName: string,
+    lastName: string
+  ): void => setDoctor(id);
 
   const filterSelectedSymptoms = (symptoms: Symptom[]): SelectedSymptom[] => {
     // Removes selected symptoms, and groups symptoms by area together.
@@ -133,7 +142,7 @@ const ConsultationContextProvider = (props: Props) => {
           painLevel: painLevel,
           patientId: user!.id,
           patientNotes: "",
-          doctorId: doctorId,
+          doctorId: doctor.id,
         };
         // send to backend
         mutation.mutate(consultation);
@@ -158,7 +167,7 @@ const ConsultationContextProvider = (props: Props) => {
         togglePhysicalSymptomSelect,
         toggleGeneralSymptomSelect,
         changePainLevel,
-        updateDoctorId,
+        updateDoctor,
         confirmConsultation,
         getConsultationId,
       }}

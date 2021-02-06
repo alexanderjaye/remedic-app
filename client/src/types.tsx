@@ -49,3 +49,11 @@ export interface Symptom {
   question?: string;
   selected: boolean;
 }
+
+export interface Doctor {
+  lastName: string;
+  firstName: string;
+  id: number;
+  language: string;
+  docPublicCode: string;
+}
