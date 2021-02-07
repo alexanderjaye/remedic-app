@@ -52,7 +52,7 @@ const PatientLanding = () => {
           className="w-24 top-8 animate-pulse"
         ></img>
       </div>
-      <div className="h-full flex flex-col justify-around items-center py-16 animate-pulsing">
+      <div className="h-full flex flex-col justify-around items-center py-16">
         {landingCards.map((card, i) => (
           <PatientLandingCard
             key={i}
