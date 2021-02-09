@@ -12,6 +12,7 @@ import {
   IDToServiceName,
   serviceBGColors,
 } from "../../../../utils/NhsServices";
+import MapHomeIcon from "../../../Globals/MapHomeIcon/MapHomeIcon";
 
 interface Coordinates {
   lat: number;
@@ -94,6 +95,11 @@ const LocalServices = () => {
               setCurrentPractice(childProps.service)
             }
           >
+            <MapHomeIcon
+              lat={coords.lat}
+              lng={coords.lng}
+              fillColor="text-black"
+            />
             {services &&
               services.map((s, idx) => (
                 <LocationPin key={idx} lat={s.lat} lng={s.lng} service={s} />

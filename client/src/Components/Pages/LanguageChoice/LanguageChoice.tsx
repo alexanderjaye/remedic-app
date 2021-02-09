@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import RemedicLogo from "../../../assets/logos/Remedic Text Logo.png";
 import SpinningGlobe from "../../Globals/Spinning Globe/SpinningGlobe";
 import Tick from "../../../assets/utils/tick.svg";
+import { Transition } from "@headlessui/react";
 
 const LanguageChoice = () => {
   const history = useHistory();
@@ -24,7 +25,14 @@ const LanguageChoice = () => {
   };
 
   return (
-    <div className="flex-col flex justify-center min-h-screen min-w-screen max-w-3xl mx-auto relative">
+    <Transition
+    appear={true}
+    show={true}
+    enter="transition-opacity ease-in-out duration-700"
+    enterFrom="opacity-0"
+    enterTo="opacity-100"
+    className="flex-col flex justify-center min-h-screen min-w-screen max-w-3xl mx-auto relative"
+  >
       <div className="flex flex-col px-16 h-full justify-evenly items-center overflow-hidden z-10">
         {" "}
         <div className="flex justify-center w-full tablet:w-2/3">
@@ -85,7 +93,7 @@ const LanguageChoice = () => {
         classes="opacity-5 absolute left-1/2 -ml-48 w-full"
         size={400}
       ></SpinningGlobe>
-    </div>
+    </Transition>
   );
 };
 

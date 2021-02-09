@@ -1,38 +1,38 @@
 import React, { useState } from "react";
 import LocalServices from "./LocalServices/LocalServices";
 
-interface ServiceView {
-  serviceName: string;
-  current: boolean;
-}
-
 const Services = () => {
-  const [services, setServices] = useState<ServiceView[]>([
-    { serviceName: "Local Services", current: true },
-    { serviceName: "Translate Terms", current: false },
-  ]);
-
-  const selectService = (selectedService: string) => {
-    const alteredServiceViews = services.map((service) => {
-      if (selectedService === service.serviceName) service.current = true;
-      else service.current = false;
-      return service;
-    });
-    setServices(alteredServiceViews);
-  };
+  const [currentService, setCurrentService] = useState<string>(
+    "Local Services"
+  );
+  const services: string[] = ["Local Services", "Translate Terms"];
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen">
-      <div className="flex-grow w-full">
-        <LocalServices />
-      </div>
-      <div className="h-14 bg-blue w-full flex justify-between items-center font-bold">
+      {currentService === services[0] && (
+        <div className="flex-grow w-full">
+          <LocalServices />
+        </div>
+      )}
+
+      {currentService === services[1] && (
+        <div className="flex-grow w-full"></div>
+      )}
+
+      <div
+        className={`h-14 bg-blue w-full grid grid-cols-${services.length} font-bold`}
+      >
         {services.map((service, idx) => (
           <div
-            className="w-1/2 text-white flex justify-center items-center"
+            className={`flex justify-center px-1 items-center row-auto ${
+              service === currentService
+                ? "text-blue bg-white"
+                : "text-white bg-blue"
+            }`}
             key={idx}
+            onClick={() => setCurrentService(service)}
           >
-            <h1>{service.serviceName}</h1>
+            <h1 className="text-center">{service}</h1>
           </div>
         ))}
       </div>

@@ -6,6 +6,7 @@ import logoReduced from "../../../assets/logos/logo-reduced.svg";
 import { AuthContext } from "../../../Contexts/Auth.context";
 import { PatientContext } from "../../../Contexts/Patient.context";
 import { useHistory } from "react-router-dom";
+import { Transition } from "@headlessui/react";
 interface LandingCards {
   route?: string;
   title: string;
@@ -19,7 +20,6 @@ const PatientLanding = () => {
   const { logout } = useContext(AuthContext)!; // logout from auth context
   const { getTranslatedText } = useContext(PatientContext)!;
   const history = useHistory();
-
   const localText = getTranslatedText().patientLandingTerms;
 
   // put landingCards in here
@@ -38,7 +38,8 @@ const PatientLanding = () => {
     },
     {
       title: localText.profile,
-      bgColorClass: "bg-green-dark",
+      bgColorClass: "bg-map-orange-400",
+
       textColor: "white",
       path: "/patient/profile",
     },
@@ -50,7 +51,14 @@ const PatientLanding = () => {
   };
 
   return (
-    <div className="h-full w-full relative p-3 overflow-hidden">
+    <Transition
+    appear={true}
+    show={true}
+    enter="transition-opacity ease-in-out duration-700"
+    enterFrom="opacity-0"
+    enterTo="opacity-100"
+    className="h-full w-full relative p-3 overflow-hidden"
+  >
       <div className="flex items-center justify-center h-28 absolute w-full">
         <img
           src={logoReduced}
@@ -58,7 +66,7 @@ const PatientLanding = () => {
           className="w-24 top-8 animate-pulse"
         ></img>
       </div>
-      <div className="h-full flex flex-col justify-around items-center py-16">
+      <div className="h-full flex flex-col justify-around items-center py-20">
         {landingCards.map((card, i) => (
           <PatientLandingCard
             key={i}
@@ -87,7 +95,7 @@ const PatientLanding = () => {
           Logout
         </button>
       </div>
-    </div>
+    </Transition>
   );
 };
 

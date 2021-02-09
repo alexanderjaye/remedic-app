@@ -10,12 +10,13 @@ interface Props {
   placeholder: string;
   id: string;
   name: string;
+  autoComplete?: string;
   updateInput: (name: string, value: string) => void;
   onSubmit: () => void;
 }
 
 function FormInput(props: Props) {
-  const { type, placeholder, id, name, updateInput} = props;
+  const { type, placeholder, id, name, updateInput, autoComplete } = props;
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ function FormInput(props: Props) {
       id={id}
       name={name}
       onChange={handleInputChange}
+      autoComplete={autoComplete ? autoComplete : "on"}
       className="px-4 rounded-md shadow-sm py-2 ring-2 focus:ring-blue-dark w-full cursor-text"
     />
   );

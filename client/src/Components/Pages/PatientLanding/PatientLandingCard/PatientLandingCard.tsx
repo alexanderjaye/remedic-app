@@ -18,7 +18,7 @@ const PatientLandingCard = (props: Props) => {
     <div
       className={
         props.bgColorClass +
-        " relative h-20 w-3/4 max-w-xl flex justify-end p-2 rounded-b-2xl z-10 opacity-90 to-transparent cursor-pointer shadow-xl"
+        " relative h-20 w-3/4 max-w-xl flex justify-end p-2 rounded-b-2xl z-10 opacity-90 to-transparent cursor-pointer shadow-2xl"
       }
       onClick={() => handleClick(props.path)}
     >
